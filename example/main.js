@@ -3,7 +3,7 @@
 const React = require('react')
 const ReactDom = require('react-dom')
 const Tags = require('../lib/ReactTags')
-const suggestions = require('./countries')
+const suggestions = require('./users')
 
 class App extends React.Component {
   constructor (props) {
@@ -11,8 +11,16 @@ class App extends React.Component {
 
     this.state = {
       tags: [
-        { id: 184, name: 'Thailand' },
-        { id: 86, name: 'India' }
+        {
+          id: 400,
+          name: "Mikko Sarreal",
+          avatar: "https://avatars1.githubusercontent.com/u/26211423?s=460&v=4"
+        },
+        {
+          id: 300,
+          name: "Rob May",
+          avatar: "https://avatars1.githubusercontent.com/u/38393319?s=70&v=4"
+        }
       ],
       suggestions
     }
@@ -30,13 +38,15 @@ class App extends React.Component {
   }
 
   render () {
+    console.log(this.state)
     return (
       <div>
         <Tags
           tags={this.state.tags}
           suggestions={this.state.suggestions}
           handleDelete={this.handleDelete.bind(this)}
-          handleAddition={this.handleAddition.bind(this)} />
+          handleAddition={this.handleAddition.bind(this)} 
+          minQueryLength={1}/>
         <hr />
         <pre><code>{JSON.stringify(this.state.tags, null, 2)}</code></pre>
       </div>

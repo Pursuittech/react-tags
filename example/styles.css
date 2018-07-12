@@ -157,3 +157,11 @@
   opacity: 0.5;
   cursor: auto;
 }
+.react-tags__selected-tag-avatar {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  padding-right: 5px;
+}
+
