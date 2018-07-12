@@ -6,14 +6,6 @@ function escapeForRegExp (query) {
   return query.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&')
 }
 
-function markIt (input, query) {
-  const regex = RegExp(escapeForRegExp(query), 'gi')
-
-  return {
-    __html: input.replace(regex, '<mark>$&</mark>')
-  }
-}
-
 function filterSuggestions (query, suggestions, length) {
   const regex = new RegExp(`(?:^|\\s)${escapeForRegExp(query)}`, 'i')
   return suggestions.filter((item) => regex.test(item.name)).slice(0, length)
@@ -24,14 +16,30 @@ class Suggestions extends React.Component {
     super(props)
 
     this.state = {
-      options: filterSuggestions(this.props.query, this.props.suggestions, this.props.maxSuggestionsLength)
+      options: filterSuggestions(this.props.query, this.props.suggestions, this.props.maxSuggestionsLength),
+      animate: {}
     }
   }
 
   componentWillReceiveProps (newProps) {
+    const transitionStyles = {
+      transform: 'scale(1)',
+      transition: 'all 0.25s cubic-bezier(0.3, 1.2, 0.2, 1)',
+      transformOrigin: '1em 0% 0px'
+    }
+    console.log(newProps)
     this.setState({
       options: filterSuggestions(newProps.query, newProps.suggestions, newProps.maxSuggestionsLength)
     })
+
+    if (newProps.expandable === true) {
+      this.timeout = setTimeout(() => { this.setState({ animate: transitionStyles }) }, 100)
+    } else {
+      this.setState({ animate: {} })
+      if (this.timeout) {
+        clearTimeout(this.timeout)
+      }
+    }
   }
 
   handleMouseDown (item, e) {
@@ -60,13 +68,14 @@ class Suggestions extends React.Component {
       return (
         React.createElement( 'li', {
           id: key, key: key, role: 'option', className: classNames.join(' '), 'aria-disabled': item.disabled === true, onMouseDown: this.handleMouseDown.bind(this, item) },
-          React.createElement( 'span', { dangerouslySetInnerHTML: markIt(item.name, this.props.query) })
+          React.createElement( 'img', { className: this.props.classNames.selectedTagAvatar, src: item.avatar }),
+          React.createElement( 'span', null, item.name )
         )
       )
     })
 
     return (
-      React.createElement( 'div', { className: this.props.classNames.suggestions },
+      React.createElement( 'div', { className: this.props.classNames.suggestions, style: this.state.animate },
         React.createElement( 'ul', { role: 'listbox', id: this.props.listboxId }, options)
       )
     )

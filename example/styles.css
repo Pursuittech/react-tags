@@ -113,6 +113,8 @@
   top: 100%;
   left: 0;
   width: 100%;
+  transform: scale(0);
+      -webkit-transform: scale(0);
 }
 
 @media screen and (min-width: 30em) {
@@ -125,7 +127,7 @@
 
 .react-tags__suggestions ul {
   margin: 4px -1px;
-  padding: 0;
+  padding: 7px 0;
   list-style: none;
   background: white;
   border: 1px solid #D1D1D1;
@@ -134,7 +136,7 @@
 }
 
 .react-tags__suggestions li {
-  border-bottom: 1px solid #ddd;
+  /*border-bottom: 1px solid #ddd;*/
   padding: 6px 8px;
 }
 
@@ -146,7 +148,7 @@
 
 .react-tags__suggestions li:hover {
   cursor: pointer;
-  background: #eee;
+  background: #e6f3ff;
 }
 
 .react-tags__suggestions li.is-active {
