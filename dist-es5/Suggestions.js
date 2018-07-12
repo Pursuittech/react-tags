@@ -33,7 +33,7 @@ var Suggestions = (function (superclass) {
       transition: 'all 0.25s cubic-bezier(0.3, 1.2, 0.2, 1)',
       transformOrigin: '1em 0% 0px'
     }
-    console.log(newProps)
+
     this.setState({
       options: filterSuggestions(newProps.query, newProps.suggestions, newProps.maxSuggestionsLength)
     })
