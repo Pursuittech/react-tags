@@ -69,12 +69,11 @@ class Input extends React.Component {
   }
 
   render () {
-    const { query, placeholder, expandable, listboxId, selectedIndex } = this.props
+    const { inputAttributes, query, placeholder, expandable, listboxId, selectedIndex } = this.props
 
     return (
       React.createElement( 'div', { className: this.props.classNames.searchInput },
-        React.createElement( 'input', {
-          ref: (c) => { this.input = c }, value: query, placeholder: placeholder, role: 'combobox', 'aria-autocomplete': 'list', 'aria-label': placeholder, 'aria-owns': listboxId, 'aria-activedescendant': selectedIndex > -1 ? `${listboxId}-${selectedIndex}` : null, 'aria-expanded': expandable, style: { width: this.state.inputWidth } }),
+        React.createElement( 'input', Object.assign({}, inputAttributes, { ref: (c) => { this.input = c }, value: query, placeholder: placeholder, role: 'combobox', 'aria-autocomplete': 'list', 'aria-label': placeholder, 'aria-owns': listboxId, 'aria-activedescendant': selectedIndex > -1 ? `${listboxId}-${selectedIndex}` : null, 'aria-expanded': expandable, style: { width: this.state.inputWidth } })),
         React.createElement( 'div', { ref: (c) => { this.sizer = c }, style: SIZER_STYLES }, query || placeholder)
       )
     )

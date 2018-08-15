@@ -154,7 +154,7 @@ class ReactTags extends React.Component {
 
     const tags = this.props.tags.map((tag, i) => (
       React.createElement( TagComponent, {
-        key: i, tag: tag, classNames: this.state.classNames, onDelete: this.deleteTag.bind(this, i) })
+        key: i, tag: tag, disabled: this.props.disableButton, classNames: this.state.classNames, onDelete: this.deleteTag.bind(this, i) })
     ))
 
     const expandable = this.state.focused && this.state.query.length >= this.props.minQueryLength
@@ -169,7 +169,7 @@ class ReactTags extends React.Component {
         ),
         React.createElement( 'div', {
           className: this.state.classNames.search, onBlurCapture: this.handleBlur.bind(this), onFocusCapture: this.handleFocus.bind(this), onInput: this.handleInput.bind(this), onKeyDown: this.handleKeyDown.bind(this) },
-          React.createElement( Input, Object.assign({}, this.state, { ref: (c) => { this.input = c }, listboxId: listboxId, autofocus: this.props.autofocus, autoresize: this.props.autoresize, expandable: expandable, placeholder: this.props.placeholder })),
+          React.createElement( Input, Object.assign({}, this.state, { inputAttributes: this.props.inputAttributes, ref: (c) => { this.input = c }, listboxId: listboxId, autofocus: this.props.autofocus, autoresize: this.props.autoresize, expandable: expandable, placeholder: this.props.placeholder })),
           React.createElement( Suggestions, Object.assign({}, this.state, { ref: (c) => { this.suggestions = c }, listboxId: listboxId, expandable: expandable, suggestions: this.props.suggestions, addTag: this.addTag.bind(this), maxSuggestionsLength: this.props.maxSuggestionsLength }))
         )
       )
@@ -189,7 +189,9 @@ ReactTags.defaultProps = {
   maxSuggestionsLength: 6,
   allowNew: false,
   allowBackspace: true,
-  tagComponent: null
+  tagComponent: null,
+  inputAttributes: {},
+  disableButton: false
 }
 
 ReactTags.propTypes = {
@@ -213,7 +215,9 @@ ReactTags.propTypes = {
   tagComponent: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.element
-  ])
+  ]),
+  inputAttributes: PropTypes.object,
+  disableButton: PropTypes.bool
 }
 
 module.exports = ReactTags

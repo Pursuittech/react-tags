@@ -78,6 +78,7 @@ var Input = (function (superclass) {
     var this$1 = this;
 
     var ref = this.props;
+    var inputAttributes = ref.inputAttributes;
     var query = ref.query;
     var placeholder = ref.placeholder;
     var expandable = ref.expandable;
@@ -86,8 +87,7 @@ var Input = (function (superclass) {
 
     return (
       React.createElement( 'div', { className: this.props.classNames.searchInput },
-        React.createElement( 'input', {
-          ref: function (c) { this$1.input = c }, value: query, placeholder: placeholder, role: 'combobox', 'aria-autocomplete': 'list', 'aria-label': placeholder, 'aria-owns': listboxId, 'aria-activedescendant': selectedIndex > -1 ? (listboxId + "-" + selectedIndex) : null, 'aria-expanded': expandable, style: { width: this.state.inputWidth } }),
+        React.createElement( 'input', Object.assign({}, inputAttributes, { ref: function (c) { this$1.input = c }, value: query, placeholder: placeholder, role: 'combobox', 'aria-autocomplete': 'list', 'aria-label': placeholder, 'aria-owns': listboxId, 'aria-activedescendant': selectedIndex > -1 ? (listboxId + "-" + selectedIndex) : null, 'aria-expanded': expandable, style: { width: this.state.inputWidth } })),
         React.createElement( 'div', { ref: function (c) { this$1.sizer = c }, style: SIZER_STYLES }, query || placeholder)
       )
     )

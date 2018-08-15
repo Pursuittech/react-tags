@@ -43,6 +43,8 @@ class App extends React.Component {
       <div>
         <Tags
           tags={this.state.tags}
+          inputAttributes={{readOnly: true}}
+          disableButton={true}
           suggestions={this.state.suggestions}
           handleDelete={this.handleDelete.bind(this)}
           handleAddition={this.handleAddition.bind(this)} 
